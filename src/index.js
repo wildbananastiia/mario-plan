@@ -14,13 +14,15 @@ import { reduxFirestore } from 'redux-firestore';
 import { getFirebase } from 'react-redux-firebase'
 import { getFirestore, createFirestoreInstance } from 'redux-firestore'
 import fbConfig from './config/fbConfig'
+import { composeWithDevTools } from 'redux-devtools-extension';
 
 const store = createStore(
     rootReducer,
-    compose(
-        applyMiddleware(thunk.withExtraArgument({ getFirestore, getFirebase })),
-        reduxFirestore(firebase, fbConfig)
-    )
+    composeWithDevTools(
+        compose(
+            applyMiddleware(thunk.withExtraArgument({ getFirestore, getFirebase })),
+            reduxFirestore(firebase, fbConfig)
+        ))
 );
 
 const rrfProps = {
